@@ -5,7 +5,9 @@ torch
 torchvision
 PIL
 skimage
+cv2
+ultralytics
 
-Download models from the link specified in Readme of the Repository
+Download weights from the link specified in Readme of the Repository
 
 Training code of Feature Fusion Attention Network Architecture (FFA-Net) can also be accessed from the google drive link provided in Readme of Repository
