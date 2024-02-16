@@ -5,10 +5,14 @@
 This GitHub repository contains the source code and documentation for our final year BTech project in Computer Science and Engineering. The project focuses on creating a Python GUI-based application that performs image dehazing/desmoking and human/animal detection. The goal is to contribute to efficient rescue operations during indoor fire disasters by clearing smoke and haze from images and detecting the presence of humans and animals at the disaster site.
 
 Training Code of Feature Fusion Attention Network Architecture Model can be accessed through - https://drive.google.com/file/d/1KhRlRJyCslhM-T-0BWtZhv3StSDawKBl/view?usp=drive_link
-###Output images - 
+### Output images - 
+
 ![396_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/7001e1f4-b2ad-4702-b65a-d024d237a208)
+
 ![833_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/e077cd91-d80c-4220-afe1-9c097f4b767f)
+
 ![1416_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/50fef60a-bf05-4dfc-8b01-5ddc971fc329)
+
 ![234_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/784fbbba-6e83-4228-82c5-c0ec013be8c1)
 
 ## Features
