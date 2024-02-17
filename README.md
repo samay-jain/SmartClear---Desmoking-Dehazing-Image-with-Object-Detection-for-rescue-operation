@@ -2,7 +2,7 @@
 
 
 ## Overview
-This GitHub repository contains the source code and documentation for our final year BTech project in Computer Science and Engineering. The project focuses on creating a Python GUI-based application that performs image dehazing/desmoking and human/animal detection. The goal is to contribute to efficient rescue operations during indoor fire disasters by clearing smoke and haze from images and detecting the presence of humans and animals at the disaster site.
+This GitHub repository contains the source code and documentation for our final year B.Tech project in Computer Science and Engineering. The project focuses on creating a Python GUI-based application that performs image dehazing/desmoking and human/animal detection. The goal is to contribute to efficient rescue operations during indoor fire disasters by clearing smoke and haze from images and detecting the presence of humans and animals at the disaster site.
 
 Training Code of Feature Fusion Attention Network Architecture Model can be accessed through - https://drive.google.com/file/d/1KhRlRJyCslhM-T-0BWtZhv3StSDawKBl/view?usp=drive_link
 ### Output images - 
