@@ -315,14 +315,6 @@ def AnnotatorAndGridMaker(original, dehazed, detected):
         
 #Operations -
 
-#Loading dehazing desmoking model
-ckp = torch.load(pretrained_model_dir, map_location=device)
-net = FFA(gps=gps, blocks=blocks)
-net = nn.DataParallel(net)
-net.load_state_dict(ckp['model'])
-net = net.to(device)
-net.eval()
-
 hr = HazeRemoval()
 
 print("1. Image\n2. Video\n3. Folder path\n")
@@ -379,6 +371,14 @@ elif(ch==2):
     print(f"Video saved at: {output_video_path}")
 
 elif(ch==3):
+    #Loading dehazing desmoking model
+    ckp = torch.load(pretrained_model_dir, map_location=device)
+    net = FFA(gps=gps, blocks=blocks)
+    net = nn.DataParallel(net)
+    net.load_state_dict(ckp['model'])
+    net = net.to(device)
+    net.eval()
+    
     folderpath = input("Enter Folder path: ")
     img_paths = sorted(os.listdir(folderpath))
 
