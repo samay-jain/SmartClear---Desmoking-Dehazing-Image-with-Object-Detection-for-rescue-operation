@@ -7,13 +7,14 @@ This GitHub repository contains the source code and documentation for our final 
 Training Code of Feature Fusion Attention Network Architecture Model can be accessed through - https://drive.google.com/file/d/1KhRlRJyCslhM-T-0BWtZhv3StSDawKBl/view?usp=drive_link
 ### Output images - 
 
-![396_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/7001e1f4-b2ad-4702-b65a-d024d237a208)
+![396_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/4c049652-d062-4dcb-8b53-97a557ad64ec)
 
-![833_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/e077cd91-d80c-4220-afe1-9c097f4b767f)
+![833_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/841e730c-d06d-4e88-b80b-d8b46da02792)
 
-![1416_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/50fef60a-bf05-4dfc-8b01-5ddc971fc329)
+![234_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/f0e3aa92-4496-4ebd-8734-339a8e7ccc09)
 
-![234_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/784fbbba-6e83-4228-82c5-c0ec013be8c1)
+![236_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/7cc6c493-2f1e-40c9-80fa-d28e1d65ef64)
+
 
 ## Features
 Dehazing/Desmoking Model: Utilizes the FFA-Net architecture, a Feature Fusion Attention Network, to effectively dehaze/smoke images. The model has been trained on a labeled dataset consisting of 30,000 indoor hazed images.
