@@ -18,7 +18,6 @@ from skimage.metrics import structural_similarity as ssim
 from ultralytics import YOLO
 warnings.filterwarnings('ignore')
 
-
 import numpy as np
 from guided_filter import HazeRemoval
 import os
@@ -186,9 +185,10 @@ class_list = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'trai
               'teddy bear', 'hair drier', 'toothbrush']
 
 #Generate random colors for class list
-detection_colors = [(np.random.randint(0, 255), np.random.randint(0, 255), np.random.randint(0, 255)) for _ in range(len(class_list))]
+#detection_colors = [(np.random.randint(0, 255), np.random.randint(0, 255), np.random.randint(0, 255)) for _ in range(len(class_list))]
 #Load a YOLOv8n model
-model = YOLO("weights/yolov8n.pt", "v8")
+model = YOLO("weights/yolov8-med-25.9params.pt","v8")
+#model = YOLO("D:/Major Project/De-Smoking or De-Hazing Module/weights/yolov8nmod.pt","v8")
 
 
 #Dehazed Image output accuracy calculator
@@ -242,7 +242,7 @@ def dehazingImg(haze):
     ts = make_grid(ts, nrow=1, normalize=True)
     return ts
 
-def livingDetection(img):
+'''def livingDetection(img):
     frame = tensor_to_cv2(img)
     if frame is None:
         print("Error: Could not open or read the image.")
@@ -283,7 +283,107 @@ def livingDetection(img):
                     (255, 0, 0),
                     2,
                 )
+    return frame'''
+
+def livingDetection(img):
+    frame = tensor_to_cv2(img)
+    if frame is None:
+        print("Error: Could not open or read the image.")
+        exit()
+
+    detect_params = model.predict(source=[frame], conf=0.3, save=False)  # Adjust confidence threshold
+    DP = detect_params[0].cpu().numpy()
+
+    if len(DP) != 0:
+        # Iterate over detected objects
+        for i in range(len(detect_params[0])):
+            boxes = detect_params[0].boxes
+            box = boxes[i]
+            clsID = box.cls.cpu().numpy()[0]
+            conf = box.conf.cpu().numpy()[0]
+            bb = box.xyxy.cpu().numpy()[0]
+
+            # Check if the detected object belongs to living beings
+            class_name = class_list[int(clsID)]
+            living_being_label = classify_living_being(class_name)
+
+            if living_being_label == 'person':
+                # Draw bounding box for persons
+                cv2.rectangle(
+                    frame,
+                    (int(bb[0]), int(bb[1])),
+                    (int(bb[2]), int(bb[3])),
+                    (255, 0, 0),  # Color for persons
+                    3,
+                )
+
+                # Display class name and confidence
+                font = cv2.FONT_HERSHEY_COMPLEX
+                cv2.putText(
+                    frame,
+                    "Person",
+                    (int(bb[0]), int(bb[1]) - 10),
+                    font,
+                    1,
+                    (255, 0, 0),
+                    2,
+                )
+
+            elif living_being_label == 'animal':
+                # Draw bounding box for animals
+                cv2.rectangle(
+                    frame,
+                    (int(bb[0]), int(bb[1])),
+                    (int(bb[2]), int(bb[3])),
+                    (0, 0, 255),  # Color for animals
+                    3,
+                )
+
+                # Display class name and confidence
+                font = cv2.FONT_HERSHEY_COMPLEX
+                cv2.putText(
+                    frame,
+                    "Animal",
+                    (int(bb[0]), int(bb[1]) - 10),
+                    font,
+                    1,
+                    (0, 0, 255),
+                    2,
+                )
+
+            elif living_being_label == 'bird':
+
+                # Draw bounding box for birds
+                cv2.rectangle(
+                    frame,
+                    (int(bb[0]), int(bb[1])),
+                    (int(bb[2]), int(bb[3])),
+                    (1, 50, 32),  # Color for birds
+                    3,
+                )
+
+                # Display class name and confidence
+                font = cv2.FONT_HERSHEY_COMPLEX
+                cv2.putText(
+                    frame,
+                    "Bird",
+                    (int(bb[0]), int(bb[1]) - 10),
+                    font,
+                    1,
+                    (1, 50, 32),
+                    2,
+                )
     return frame
+
+def classify_living_being(class_name):
+    if class_name == 'person':
+        return 'person'
+    elif class_name in ['cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe']:
+        return 'animal'
+    elif class_name == 'bird':
+        return 'bird'
+    else:
+        return None    
             
 
 def AnnotatorAndGridMaker(original, dehazed, detected):
@@ -312,9 +412,14 @@ def AnnotatorAndGridMaker(original, dehazed, detected):
     image_grid = torch.cat((original, dehazed, detected), -1)
     return image_grid
 
+ckp = torch.load(pretrained_model_dir, map_location=device)
+net = FFA(gps=gps, blocks=blocks)
+net = nn.DataParallel(net)
+net.load_state_dict(ckp['model'])
+net = net.to(device)
+net.eval()
         
 #Operations -
-
 hr = HazeRemoval()
 
 print("1. Image\n2. Video\n3. Folder path\n")
@@ -335,6 +440,7 @@ if(ch==1):
 
 elif(ch==2):
     videopath = input("Enter Video path: ")
+    option = 1
     cap = cv2.VideoCapture(videopath)
     output_video_path = output_dir + os.path.basename(videopath) + '_dehazed_video.mp4'
 
@@ -353,7 +459,58 @@ elif(ch==2):
         frame_counter += 1
 
         if frame_counter % 15 == 0:
-            original = cv2_to_pil(frame)
+
+            if option==1:
+                original = cv2_to_pil(frame)
+                hr.process_image(original)
+                dehazed = hr.get_processed_image()
+    
+                livingbeing = livingDetection(cv2_to_tensor(dehazed))
+                livingbeing = cv2.cvtColor(livingbeing, cv2.COLOR_BGR2RGB)
+
+                outputImg = AnnotatorAndGridMaker(original, dehazed, livingbeing)
+                #cv2.imshow('Video', livingbeing)
+                vutils.save_image(outputImg, output_dir + str(frame_counter) + '_dehazed_img.png')
+                out.write(livingbeing)
+
+            elif option==2:
+                original = cv2_to_pil(frame)
+                dehazed = dehazingImg(original)
+                livingbeing = livingDetection(dehazed)
+
+                outputImg = AnnotatorAndGridMaker(original, dehazed, livingbeing)
+                #cv2.imshow('Video', livingbeing)
+                vutils.save_image(outputImg, output_dir + str(frame_counter) + '_dehazed_img.png')
+                out.write(livingbeing)
+
+    cap.release()
+    out.release()
+    print(f"Video saved at: {output_video_path}")
+
+elif(ch==3):
+    folderpath = input("Enter Folder path: ")
+    option = 1
+    img_paths = sorted(os.listdir(folderpath))
+
+    output_dir = 'D:/Major Project/De-Smoking or De-Hazing Module/Output/Output_Images2/'
+
+    if option == 1:
+        #Loading dehazing desmoking model
+
+        for img_path in img_paths:
+            img_path = os.path.join(folderpath, img_path)
+            original = Image.open(img_path)
+            dehazed = dehazingImg(original)
+            livingbeing = livingDetection(dehazed)
+
+            #livingbeing = cv2.cvtColor(livingbeing, cv2.COLOR_BGR2RGB)
+            outputImg = AnnotatorAndGridMaker(original, dehazed, livingbeing)
+            vutils.save_image(outputImg, output_dir + os.path.basename(img_path) + '_dehazed_img.png')
+
+    elif option == 2:
+        for img_path in img_paths:
+            img_path = os.path.join(folderpath, img_path)
+            original = Image.open(img_path)
             hr.process_image(original)
             dehazed = hr.get_processed_image()
     
@@ -361,37 +518,7 @@ elif(ch==2):
             livingbeing = cv2.cvtColor(livingbeing, cv2.COLOR_BGR2RGB)
 
             outputImg = AnnotatorAndGridMaker(original, dehazed, livingbeing)
-            #cv2.imshow('Video', livingbeing)
-            #vutils.save_image(outputImg, output_dir + str(frame_counter) + '_dehazed_img.png')
-            #show_processed_frame(livingbeing)
-            out.write(livingbeing)
-
-    cap.release()
-    out.release()
-    print(f"Video saved at: {output_video_path}")
-
-elif(ch==3):
-    #Loading dehazing desmoking model
-    ckp = torch.load(pretrained_model_dir, map_location=device)
-    net = FFA(gps=gps, blocks=blocks)
-    net = nn.DataParallel(net)
-    net.load_state_dict(ckp['model'])
-    net = net.to(device)
-    net.eval()
-    
-    folderpath = input("Enter Folder path: ")
-    img_paths = sorted(os.listdir(folderpath))
-
-    #output_dir = 'D:/Major Project/De-Smoking or De-Hazing Module/Output/Output_Images/'
-    output_dir = 'D:/Major Project/De-Smoking or De-Hazing Module/Output/'
-    for img_path in img_paths:
-        img_path = os.path.join(folderpath, img_path)
-        original = Image.open(img_path)
-        dehazed = dehazingImg(original)
-        livingbeing = livingDetection(dehazed)
-        livingbeing = cv2.cvtColor(livingbeing, cv2.COLOR_BGR2RGB)
-        outputImg = AnnotatorAndGridMaker(original, dehazed, livingbeing)
-        vutils.save_image(outputImg, output_dir + os.path.basename(img_path) + '_dehazed_img.png')
+            vutils.save_image(outputImg, output_dir + os.path.basename(img_path) + '_dehazed_img.png')
 
 else:
     print("Invalid choice")
