@@ -32,7 +32,7 @@ System Requirements: The project runs comfortably on systems with high processin
 
 Dependencies: Ensure that the required dependencies, including Torchvision, PIL, Torch, OpenCV, and Ultralytics YOLO, are installed on your system.
 
-Weights for dehazing/desmoking and human detection can be downloaded from the link - https://drive.google.com/drive/folders/1SnwXBWQ-5dLs8wrsyJWJ71oXvXv0zWHs?usp=drive_link
+Weights for dehazing/desmoking and living being detection (Humans, Animals and Birds) can be downloaded from the link - https://drive.google.com/drive/folders/1SnwXBWQ-5dLs8wrsyJWJ71oXvXv0zWHs?usp=drive_link
 
 ## Execution Steps:
 
