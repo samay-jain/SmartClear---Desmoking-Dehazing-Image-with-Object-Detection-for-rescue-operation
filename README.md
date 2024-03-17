@@ -7,13 +7,15 @@ This GitHub repository contains the source code and documentation for our final 
 Training Code of Feature Fusion Attention Network Architecture Model can be accessed through - https://drive.google.com/file/d/1KhRlRJyCslhM-T-0BWtZhv3StSDawKBl/view?usp=drive_link
 ### Output images - 
 
-![396_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/4c049652-d062-4dcb-8b53-97a557ad64ec)
+![hab3 png_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/39ca3e87-a1da-4f96-8f72-5aed0f937f2f)
+
+![hab6 png_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/19980974-2111-4969-b26c-a664076bbc83)
 
 ![833_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/841e730c-d06d-4e88-b80b-d8b46da02792)
 
 ![234_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/f0e3aa92-4496-4ebd-8734-339a8e7ccc09)
 
-![236_1_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/7cc6c493-2f1e-40c9-80fa-d28e1d65ef64)
+![236_1 png_dehazed_img](https://github.com/samay-jain/SmartClear---Desmoking-Dehazing-Image-with-Object-Detection-for-rescue-operation/assets/116068471/ceb00b14-03d7-432c-bdf4-e89bc2a9dc60)
 
 
 ## Features
