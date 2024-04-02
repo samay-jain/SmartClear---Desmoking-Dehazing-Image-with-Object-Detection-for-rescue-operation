@@ -34,9 +34,6 @@ else:
     print("CUDA is not available. Using CPU.")
 
 
-
-
-
 #Num residual_groups
 gps = 3
 #Num residual_blocks
@@ -242,48 +239,6 @@ def dehazingImg(haze):
     ts = make_grid(ts, nrow=1, normalize=True)
     return ts
 
-'''def livingDetection(img):
-    frame = tensor_to_cv2(img)
-    if frame is None:
-        print("Error: Could not open or read the image.")
-        exit()
-
-    #Predict objects in the frame
-    detect_params = model.predict(source=[frame], conf=0.45, save=False)
-    DP = detect_params[0].cpu().numpy()
-
-    if len(DP) != 0:
-        #Iterate over detected objects
-        for i in range(len(detect_params[0])):
-            boxes = detect_params[0].boxes
-            box = boxes[i]
-            clsID = box.cls.cpu().numpy()[0]
-            conf = box.conf.cpu().numpy()[0]
-            bb = box.xyxy.cpu().numpy()[0]
-
-            #Check if the detected object is a person
-            if class_list[int(clsID)] == 'person':
-                #Draw bounding box
-                cv2.rectangle(
-                    frame,
-                    (int(bb[0]), int(bb[1])),
-                    (int(bb[2]), int(bb[3])),
-                    (255, 0, 0),
-                    3,
-                )
-                
-                #Display class name and confidence
-                font = cv2.FONT_HERSHEY_COMPLEX
-                cv2.putText(
-                    frame,
-                    "Person",
-                    (int(bb[0]), int(bb[1]) - 10),
-                    font,
-                    1,
-                    (255, 0, 0),
-                    2,
-                )
-    return frame'''
 
 def livingDetection(img):
     frame = tensor_to_cv2(img)
@@ -412,6 +367,7 @@ def AnnotatorAndGridMaker(original, dehazed, detected):
     image_grid = torch.cat((original, dehazed, detected), -1)
     return image_grid
 
+#Loading dehazing desmoking model
 ckp = torch.load(pretrained_model_dir, map_location=device)
 net = FFA(gps=gps, blocks=blocks)
 net = nn.DataParallel(net)
@@ -495,8 +451,6 @@ elif(ch==3):
     output_dir = 'D:/Major Project/De-Smoking or De-Hazing Module/Output/Output_Images2/'
 
     if option == 1:
-        #Loading dehazing desmoking model
-
         for img_path in img_paths:
             img_path = os.path.join(folderpath, img_path)
             original = Image.open(img_path)
