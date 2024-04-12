@@ -2,7 +2,7 @@
 
 
 ## Overview
-This GitHub repository contains the source code and documentation for our final year B.Tech project in Computer Science and Engineering. The project focuses on creating a Python GUI-based application that performs image dehazing/desmoking and human/animal detection. The goal is to contribute to efficient rescue operations during indoor fire disasters by clearing smoke and haze from images and detecting the presence of humans and animals at the disaster site.
+This GitHub repository contains the source code and documentation for our final year B.Tech project in Computer Science and Engineering. The project focuses on creating a Python GUI-based application that performs image dehazing/desmoking and living being detection. The goal is to contribute to efficient rescue operations during indoor fire disasters by clearing smoke and haze from images and detecting the presence of living beings at the disaster site.
 
 Training Code of Feature Fusion Attention Network Architecture Model can be accessed through - https://drive.google.com/file/d/1KhRlRJyCslhM-T-0BWtZhv3StSDawKBl/view?usp=drive_link
 ### Output images - 
@@ -21,11 +21,11 @@ Training Code of Feature Fusion Attention Network Architecture Model can be acce
 ## Features
 Dehazing/Desmoking Model: Utilizes the FFA-Net architecture, a Feature Fusion Attention Network, to effectively dehaze/smoke images. The model has been trained on a labeled dataset consisting of 30,000 indoor hazed images.
 
-Human and Animal Detection: Implements YOLOv8, a deep learning object detection model, for the detection of humans and animals in images.
+Living being Detection: Implements YOLOv8, a deep learning object detection model, for the detection of living beings in images.
 
 Graphical User Interface (GUI): The application is equipped with a user-friendly GUI for easy interaction.
 
-Image Grid Output: Displays the image before and after dehazing/desmoking and human/animal detection in the form of a grid. The original image is shown on the left, and the processed image is shown on the right.
+Image Grid Output: Displays the image before and after dehazing/desmoking and living being detection in the form of a grid. The original image is shown on the left, and the processed image is shown on the right.
 
 ## Execution
 System Requirements: The project runs comfortably on systems with high processing capacity. It may be time-consuming on systems with limited resources, executing primarily on CPU.
